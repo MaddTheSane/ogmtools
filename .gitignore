@@ -25,3 +25,7 @@ mkinstalldirs
 data
 autom4te.cache/
 compile
+*.o
+*~
+avilib/libavi.a
+avilib/libavi.lib

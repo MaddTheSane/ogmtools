@@ -73,3 +73,6 @@ dvdxchap_LDADD = @DVDREAD_LIBS@
 man_MANS=ogmsplit.1 ogminfo.1 ogmmerge.1 ogmdemux.1 ogmcat.1 $(DVDXCHAP_MAN)
 
 EXTRA_DIST = $(man_MANS)
+
+CFLAGS = -Wall -Wno-sign-compare @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AVILIB_CFLAGS@ @DEBUG_CFLAGS@ @PROFILING_CFLAGS@
+CXXFLAGS = -Wall -Wno-sign-compare @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AVILIB_CFLAGS@ @DEBUG_CFLAGS@ @PROFILING_CFLAGS@

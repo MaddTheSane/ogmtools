@@ -31,7 +31,4 @@ fi
 dnl Check for headers
 AC_HEADER_STDC()
 
-CFLAGS="-Wall -Wno-sign-compare @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AVILIB_CFLAGS@ @DEBUG_CFLAGS@ @PROFILING_CFLAGS@"
-CXXFLAGS="-Wall -Wno-sign-compare @OGG_CFLAGS@ @VORBIS_CFLAGS@ @AVILIB_CFLAGS@ @DEBUG_CFLAGS@ @PROFILING_CFLAGS@"
-
 AC_OUTPUT(Makefile avilib/Makefile)

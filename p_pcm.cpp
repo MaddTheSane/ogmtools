@@ -26,7 +26,7 @@
 #include "p_pcm.h"
 #include "vorbis_header_utils.h"
 
-pcm_packetizer_c::pcm_packetizer_c(unsigned long nsamples_per_sec,
+pcm_packetizer_c::pcm_packetizer_c(unsigned int nsamples_per_sec,
                                    int nchannels, int nbits_per_sample,
                                    audio_sync_t *nasync, range_t *nrange,
                                    char **ncomments) throw (error_c) : q_c() {

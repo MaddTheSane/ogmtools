@@ -124,21 +124,21 @@ typedef struct _avisuperindex_chunk {
 typedef struct track_s
 {
 
-    long   a_fmt;             /* Audio format, see #defines below */
-    long   a_chans;           /* Audio channels, 0 for no audio */
-    long   a_rate;            /* Rate in Hz */
-    long   a_bits;            /* bits per audio sample */
-    long   mp3rate;           /* mp3 bitrate kbs*/
-    long   a_vbr;             /* 0 == no Variable BitRate */
-    long   padrate;	      /* byte rate used for zero padding */
+    int    a_fmt;             /* Audio format, see #defines below */
+    int    a_chans;           /* Audio channels, 0 for no audio */
+    int    a_rate;            /* Rate in Hz */
+    int    a_bits;            /* bits per audio sample */
+    int    mp3rate;           /* mp3 bitrate kbs*/
+    int    a_vbr;             /* 0 == no Variable BitRate */
+    int    padrate;	      /* byte rate used for zero padding */
 
-    long   audio_strn;        /* Audio stream number */
+    int    audio_strn;        /* Audio stream number */
     int64_t  audio_bytes;       /* Total number of bytes of audio data */
-    long   audio_chunks;      /* Chunks of audio data in the file */
+    int    audio_chunks;      /* Chunks of audio data in the file */
 
     char   audio_tag[4];      /* Tag of audio data */
-    long   audio_posc;        /* Audio position: chunk */
-    long   audio_posb;        /* Audio position: byte within chunk */
+    int    audio_posc;        /* Audio position: chunk */
+    int    audio_posb;        /* Audio position: byte within chunk */
  
     int64_t  a_codech_off;       /* absolut offset of audio codec information */ 
     int64_t  a_codecf_off;       /* absolut offset of audio codec information */ 
@@ -199,18 +199,18 @@ typedef struct __attribute__((__packed__))
 typedef struct
 {
   
-  long   fdes;              /* File descriptor of AVI file */
-  long   mode;              /* 0 for reading, 1 for writing */
+  int    fdes;              /* File descriptor of AVI file */
+  int    mode;              /* 0 for reading, 1 for writing */
   
-  long   width;             /* Width  of a video frame */
-  long   height;            /* Height of a video frame */
+  int    width;             /* Width  of a video frame */
+  int    height;            /* Height of a video frame */
   double fps;               /* Frames per second */
   char   compressor[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
   char   compressor2[8];     /* Type of compressor, 4 bytes + padding for 0 byte */
-  long   video_strn;        /* Video stream number */
-  long   video_frames;      /* Number of video frames */
+  int    video_strn;        /* Video stream number */
+  int    video_frames;      /* Number of video frames */
   char   video_tag[4];      /* Tag of video data */
-  long   video_pos;         /* Number of next frame to be read
+  int    video_pos;         /* Number of next frame to be read
 			       (if index present) */
   alAVISTREAMHEADER video_stream_header;
   
@@ -219,8 +219,8 @@ typedef struct
   track_t track[AVI_MAX_TRACKS];  // up to AVI_MAX_TRACKS audio tracks supported
   
   int64_t  pos;               /* position in file */
-  long   n_idx;             /* number of index entries actually filled */
-  long   max_idx;           /* number of index entries actually allocated */
+  int    n_idx;             /* number of index entries actually filled */
+  int    max_idx;           /* number of index entries actually allocated */
   
   int64_t  v_codech_off;      /* absolut offset of video codec (strh) info */ 
   int64_t  v_codecf_off;      /* absolut offset of video codec (strf) info */ 
@@ -317,9 +317,9 @@ typedef struct
 #define IBM_FORMAT_ADPCM                (0x0103)
 #endif
 
-avi_t* AVI_open_output_file(char * filename);
+avi_t* AVI_open_output_file(const char * filename);
 void AVI_set_video(avi_t *AVI, int width, int height, double fps, char *compressor);
-void AVI_set_audio(avi_t *AVI, int channels, long rate, int bits, int format, long mp3rate);
+void AVI_set_audio(avi_t *AVI, int channels, int rate, int bits, int format, int mp3rate);
 int  AVI_write_frame(avi_t *AVI, char *data, long bytes, int keyframe);
 int  AVI_dup_frame(avi_t *AVI);
 int  AVI_write_audio(avi_t *AVI, char *data, long bytes);
@@ -441,18 +441,18 @@ size_t AVI_write_wave_pcm_data( int fd, const void * buffer, size_t buflen );
 
 
 struct AVIStreamHeader {
-  long  fccType;
-  long  fccHandler;
-  long  dwFlags;
-  long  dwPriority;
-  long  dwInitialFrames;
-  long  dwScale;
-  long  dwRate;
-  long  dwStart;
-  long  dwLength;
-  long  dwSuggestedBufferSize;
-  long  dwQuality;
-  long  dwSampleSize;
+  unsigned int   fccType;
+  int   fccHandler;
+  int   dwFlags;
+  int   dwPriority;
+  int   dwInitialFrames;
+  int   dwScale;
+  int   dwRate;
+  int   dwStart;
+  int   dwLength;
+  int   dwSuggestedBufferSize;
+  int   dwQuality;
+  int   dwSampleSize;
 };
 
 #endif

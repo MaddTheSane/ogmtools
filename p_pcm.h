@@ -26,7 +26,7 @@ class pcm_packetizer_c: public q_c {
     int                 packetno;
     int                 bps;
     u_int64_t           bytes_output;
-    unsigned long       samples_per_sec;
+    unsigned int        samples_per_sec;
     int                 channels;
     int                 bits_per_sample;
     char               *tempbuf;
@@ -35,7 +35,7 @@ class pcm_packetizer_c: public q_c {
     ogg_int64_t         old_granulepos;
 
   public:
-    pcm_packetizer_c(unsigned long nsamples_per_sec, int nchannels,
+    pcm_packetizer_c(unsigned int nsamples_per_sec, int nchannels,
                      int nbits_per_sample, audio_sync_t *nasync,
                      range_t *nrange, char **ncomments) throw (error_c);
     virtual ~pcm_packetizer_c();

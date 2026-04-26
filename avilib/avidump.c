@@ -61,7 +61,7 @@
 # define SWAP8(a) (a)
 #endif
 
-typedef unsigned long DWORD;
+typedef unsigned int DWORD;
 typedef unsigned short WORD;
 typedef DWORD FOURCC;             /* Type of FOUR Character Codes */
 typedef unsigned char boolean;
@@ -592,7 +592,7 @@ static boolean ProcessChunk(int fd, off_t filepos, off_t filesize,
 	    dump_vals(fd,sizeof(names_strf_vids)/sizeof(struct VAL),names_strf_vids);
 	    break;
 	case audstag:
-	    dump_vals(fd,sizeof(names_strf_auds)/sizeof(char*),names_strf_auds);
+	    dump_vals(fd,sizeof(names_strf_auds)/sizeof(names_strf_auds[0]),names_strf_auds);
 	    break;
 	default:
 	    printf("unknown\n");
@@ -601,16 +601,16 @@ static boolean ProcessChunk(int fd, off_t filepos, off_t filesize,
 	break;
 
     case Tagwave:
-	dump_vals(fd,sizeof(names_strf_auds)/sizeof(char*),names_strf_auds);
+	dump_vals(fd,sizeof(names_strf_auds)/sizeof(names_strf_auds[0]),names_strf_auds);
 	break;
 
     case indxtag: {
-	long chunks=*chunksize-sizeof(names_indx)/sizeof(char*);
+	long chunks=*chunksize-sizeof(names_indx)/sizeof(names_indx[0]);
 	off_t offset;
 	DWORD size, duration;
 	long u=0;
 	off_t indxend = datapos + chunks;
-	dump_vals(fd,sizeof(names_indx)/sizeof(char*),names_indx);
+	dump_vals(fd,sizeof(names_indx)/sizeof(names_indx[0]),names_indx);
 
 	while (datapos < indxend) {
 	    xio_read(fd, &offset,8);
@@ -630,11 +630,11 @@ static boolean ProcessChunk(int fd, off_t filepos, off_t filesize,
     case Tagix01:
     case Tagix02:
     case Tagix03: {
-	long chunks=*chunksize-sizeof(names_stdidx)/sizeof(char*);
+	long chunks=*chunksize-sizeof(names_stdidx)/sizeof(names_stdidx[0]);
 	unsigned int offset, size, key;
 	long u=0;
 	off_t indxend = datapos + chunks;
-	dump_vals(fd,sizeof(names_stdidx)/sizeof(char*),names_stdidx);
+	dump_vals(fd,sizeof(names_stdidx)/sizeof(names_stdidx[0]),names_stdidx);
 
 	while (datapos < indxend) {
 	    xio_read(fd, &offset,4);

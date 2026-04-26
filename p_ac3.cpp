@@ -27,7 +27,7 @@
 #include "p_ac3.h"
 #include "vorbis_header_utils.h"
 
-ac3_packetizer_c::ac3_packetizer_c(unsigned long nsamples_per_sec,
+ac3_packetizer_c::ac3_packetizer_c(unsigned int nsamples_per_sec,
                                    int nchannels, int nbitrate,
                                    audio_sync_t *nasync, range_t *nrange,
                                    char **ncomments) throw (error_c) : q_c() {
@@ -55,7 +55,7 @@ ac3_packetizer_c::~ac3_packetizer_c() {
     free(packet_buffer);
 }
 
-void ac3_packetizer_c::set_params(unsigned long nsamples_per_sec,
+void ac3_packetizer_c::set_params(unsigned int nsamples_per_sec,
                                   int nchannels, int nbitrate) {
   samples_per_sec = nsamples_per_sec;
   channels = nchannels;
@@ -106,7 +106,7 @@ void ac3_packetizer_c::remove_ac3_packet(int pos, int framesize) {
   buffer_size = new_size;
 }
 
-char *ac3_packetizer_c::get_ac3_packet(unsigned long *header,
+char *ac3_packetizer_c::get_ac3_packet(unsigned int *header,
                                        ac3_header_t *ac3header) {
   int     pos;
   char   *buf;
@@ -229,7 +229,7 @@ int ac3_packetizer_c::process(char *buf, int size, int last_frame) {
   int            i, tmpsize;
   unsigned char *bptr, *tempbuf;
   char          *packet;
-  unsigned long  header;
+  unsigned int   header;
   ac3_header_t   ac3header;
 
   add_to_buffer(buf, size);

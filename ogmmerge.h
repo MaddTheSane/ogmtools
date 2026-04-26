@@ -21,6 +21,7 @@
 
 #include <ogg/ogg.h>
 #include <vorbis/codec.h>
+#include <string>
 
 #include "common.h"
 #include "ogmstreams.h"
@@ -90,10 +91,10 @@ typedef class generic_packetizer_c {
 
 class error_c {
   private:
-    char *error;
+    std::string error;
   public:
-    error_c(char *nerror) { error = nerror; };
-    char *get_error()     { return error; };
+    error_c(const char *nerror) { error = std::string(nerror); };
+    const char *get_error()     { return error.c_str(); };
 };
 
 #ifndef OGMSPLIT

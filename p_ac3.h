@@ -26,7 +26,7 @@ class ac3_packetizer_c: public q_c {
   private:
     int                 bps, eos;
     u_int64_t           bytes_output, packetno;
-    unsigned long       samples_per_sec;
+    unsigned int        samples_per_sec;
     int                 channels;
     int                 bitrate;
     char               *tempbuf;
@@ -38,7 +38,7 @@ class ac3_packetizer_c: public q_c {
     ogg_int64_t         disk_fileno;
 
   public:
-    ac3_packetizer_c(unsigned long nsamples_per_sec, int nchannels,
+    ac3_packetizer_c(unsigned int nsamples_per_sec, int nchannels,
                      int nbitrate, audio_sync_t *nasync,
                      range_t *nrange, char **ncomments) throw (error_c);
     virtual ~ac3_packetizer_c();
@@ -49,11 +49,11 @@ class ac3_packetizer_c: public q_c {
     virtual void    produce_header_packets();
     virtual void    reset();
     
-    virtual void    set_params(unsigned long nsamples_per_sec, int nchannels,
+    virtual void    set_params(unsigned int nsamples_per_sec, int nchannels,
                                int nbitrate);
   private:
     virtual void    add_to_buffer(char *buf, int size);
-    virtual char   *get_ac3_packet(unsigned long *header,
+    virtual char   *get_ac3_packet(unsigned int *header,
                                    ac3_header_t *ac3header);
     virtual int     ac3_packet_available();
     virtual void    remove_ac3_packet(int pos, int framesize);

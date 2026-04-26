@@ -47,7 +47,7 @@
 
 /* The following variable indicates the kind of error */
 
-long AVI_errno = 0;
+int AVI_errno = 0;
 
 #define MAX_INFO_STRLEN 64
 static char id_str[MAX_INFO_STRLEN];
@@ -216,7 +216,7 @@ static int avi_add_chunk(avi_t *AVI, unsigned char *tag, unsigned char *data, in
 #define OUTS(s) memcpy(ix00+bl,s,4); bl+=4
 
 // this does the physical writeout of the ix## structure
-static int avi_ixnn_entry(avi_t *AVI, avistdindex_chunk *ch, avisuperindex_entry *en) 
+static int avi_ixnn_entry(avi_t *AVI, avistdindex_chunk *ch, avisuperindex_entry *en)
 {
     int bl, k;
     unsigned int max = ch->nEntriesInUse * sizeof (uint32_t) * ch->wLongsPerEntry + 24; // header
@@ -336,7 +336,7 @@ static int avi_add_std_index(avi_t *AVI, unsigned char *idxtag, unsigned char *s
     return 0;
 }
 
-static int avi_add_odml_index_entry_core(avi_t *AVI, long flags, int64_t pos, unsigned long len, avistdindex_chunk *si) 
+static int avi_add_odml_index_entry_core(avi_t *AVI, int flags, int64_t pos, unsigned long len, avistdindex_chunk *si)
 {
     int cur_chunk_idx;
     // put new chunk into index
@@ -365,7 +365,7 @@ static int avi_add_odml_index_entry_core(avi_t *AVI, long flags, int64_t pos, un
     return 0;
 }
 
-static int avi_add_odml_index_entry(avi_t *AVI, unsigned char *tag, long flags, int64_t pos, unsigned long len) 
+static int avi_add_odml_index_entry(avi_t *AVI, unsigned char *tag, int flags, int64_t pos, unsigned long len)
 {
     char fcc[5];
 
@@ -540,7 +540,7 @@ static int avi_add_odml_index_entry(avi_t *AVI, unsigned char *tag, long flags, 
 
 // #undef NR_IXNN_CHUNKS
 
-static int avi_add_index_entry(avi_t *AVI, unsigned char *tag, long flags, unsigned long pos, unsigned long len)
+static int avi_add_index_entry(avi_t *AVI, unsigned char *tag, int flags, unsigned long pos, unsigned long len)
 {
    void *ptr;
 
@@ -598,7 +598,7 @@ int AVI_can_read_audio(avi_t *AVI)
    returns a pointer to avi_t on success, a zero pointer on error
 */
 
-avi_t* AVI_open_output_file(char * filename)
+avi_t* AVI_open_output_file(const char * filename)
 {
    avi_t *AVI;
    int i;
@@ -680,7 +680,7 @@ void AVI_set_video(avi_t *AVI, int width, int height, double fps, char *compress
    avi_update_header(AVI);
 }
 
-void AVI_set_audio(avi_t *AVI, int channels, long rate, int bits, int format, long mp3rate)
+void AVI_set_audio(avi_t *AVI, int channels, int rate, int bits, int format, int mp3rate)
 {
    /* may only be called if file is open for writing */
 
@@ -1395,9 +1395,9 @@ static int avi_close_output_file(avi_t *AVI)
      
      //if (AVI->track[j].a_chans && AVI->track[j].audio_bytes)
        {
-	 unsigned long nBlockAlign = 0;
-	 unsigned long avgbsec = 0;
-	 unsigned long scalerate = 0;
+	 unsigned int nBlockAlign = 0;
+	 unsigned int avgbsec = 0;
+	 unsigned int scalerate = 0;
 	   
 	 sampsize = avi_sampsize(AVI, j);
 	 sampsize = AVI->track[j].a_fmt==0x1?sampsize*4:sampsize;

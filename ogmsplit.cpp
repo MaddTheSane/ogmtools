@@ -152,7 +152,7 @@ void split_packetizer_c::process(ogg_packet *op) {
  * General helper functions, usage
  */
 
-void usage(char *fname) {
+void usage(const char *fname) {
   fprintf(stdout,
     "Usage: %s [options] inname\n\n"
     " options:\n"
@@ -187,7 +187,7 @@ void usage(char *fname) {
     "  -V, --version    Show version information.\n", fname);
 }
 
-void print_progress(ogg_int64_t current, ogg_int64_t num, char *s) {
+void print_progress(ogg_int64_t current, ogg_int64_t num, const char *s) {
   if (frontend_mode)
     fprintf(stdout, "Processing %s %lld/%lld (%lld%%)\n", s,
             current, num, current * 100 / num);

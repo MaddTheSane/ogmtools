@@ -6,15 +6,31 @@ AM_INIT_AUTOMAKE(ogmtools,1.5)
 
 AC_PROG_CC
 AC_PROG_CXX
-m4_warn([obsolete],
-[AC_PROG_GCC_TRADITIONAL is obsolete; use AC_PROG_CC
-])dnl
-AC_REQUIRE(AC_PROG_CC)
 AC_PROG_CPP
 AC_PROG_RANLIB
+PKG_PROG_PKG_CONFIG
 
-XIPH_PATH_OGG()
-XIPH_PATH_VORBIS()
+# Check for Ogg library (version 1.0 or higher)
+PKG_CHECK_MODULES([OGG], [ogg >= 1.0], [
+    AC_SUBST([OGG_CFLAGS])
+    AC_SUBST([OGG_LIBS])
+], [
+    AC_MSG_ERROR([Ogg library not found. Please install libogg-dev or similar.])
+])
+# Check for vorbis library (version 1.0 or higher)
+PKG_CHECK_MODULES([VORBIS], [vorbis >= 1.0], [
+    AC_SUBST([VORBIS_CFLAGS])
+    AC_SUBST([VORBIS_LIBS])
+], [
+    AC_MSG_ERROR([Vorbis library not found. Please install libvorbis-dev or similar.])
+])
+# Check for vorbisenc library (version 1.0 or higher)
+PKG_CHECK_MODULES([VORBISENC], [vorbisenc >= 1.0], [
+    AC_SUBST([VORBISENC_CFLAGS])
+    AC_SUBST([VORBISENC_LIBS])
+], [
+    AC_MSG_ERROR([Vorbisenc library not found. Please install libvorbisenc-dev or similar.])
+])
 PATH_AVILIB()
 PATH_DEBUG()
 PATH_PROFILING()
@@ -33,12 +49,6 @@ AC_DEFINE(NEED_FSEEKO)
 fi
 
 dnl Check for headers
-m4_warn([obsolete],
-[The preprocessor macro 'STDC_HEADERS' is obsolete.
-  Except in unusual embedded environments, you can safely include all
-  C89 headers unconditionally.])dnl
-# Autoupdate added the next two lines to ensure that your configure
-# script's behavior did not change.  They are probably safe to remove.
 AC_CHECK_INCLUDES_DEFAULT
 AC_PROG_EGREP
 

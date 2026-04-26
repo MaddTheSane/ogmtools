@@ -55,7 +55,7 @@ dnl
 dnl Now check if the installed Ogg is sufficiently new.
 dnl
       rm -f conf.oggtest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,7 +67,7 @@ int main ()
   return 0;
 }
 
-],, no_ogg=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]])],[],[no_ogg=yes],[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
   fi
@@ -83,11 +83,10 @@ int main ()
        echo "*** Could not run Ogg test program, checking why..."
        CFLAGS="$CFLAGS $OGG_CFLAGS"
        LIBS="$LIBS $OGG_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <stdio.h>
 #include <ogg/ogg.h>
-],     [ return 0; ],
-       [ echo "*** The test program compiled, but did not run. This usually means"
+]], [[ return 0; ]])],[ echo "*** The test program compiled, but did not run. This usually means"
        echo "*** that the run-time linker is not finding Ogg or finding the wrong"
        echo "*** version of Ogg. If it is not finding Ogg, you'll need to set your"
        echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to point"
@@ -95,8 +94,7 @@ int main ()
        echo "*** is required on your system"
        echo "***"
        echo "*** If you have an old version installed, it is best to remove it, although"
-       echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"],
-       [ echo "*** The test program failed to compile or link. See the file config.log for the"
+       echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"],[ echo "*** The test program failed to compile or link. See the file config.log for the"
        echo "*** exact error that occured. This usually means Ogg was incorrectly installed"
        echo "*** or that you have moved Ogg since it was installed. In the latter case, you"
        echo "*** may want to edit the ogg-config script: $OGG_CONFIG" ])
@@ -152,7 +150,7 @@ dnl
 dnl Now check if the installed Vorbis is sufficiently new.
 dnl
       rm -f conf.vorbistest
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -164,7 +162,7 @@ int main ()
   return 0;
 }
 
-],, no_vorbis=yes,[echo $ac_n "cross compiling; assumed OK... $ac_c"])
+]])],[],[no_vorbis=yes],[echo $ac_n "cross compiling; assumed OK... $ac_c"])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
   fi
@@ -180,11 +178,10 @@ int main ()
        echo "*** Could not run Vorbis test program, checking why..."
        CFLAGS="$CFLAGS $VORBIS_CFLAGS"
        LIBS="$LIBS $VORBIS_LIBS $OGG_LIBS"
-       AC_TRY_LINK([
+       AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <stdio.h>
 #include <vorbis/codec.h>
-],     [ return 0; ],
-       [ echo "*** The test program compiled, but did not run. This usually means"
+]], [[ return 0; ]])],[ echo "*** The test program compiled, but did not run. This usually means"
        echo "*** that the run-time linker is not finding Vorbis or finding the wrong"
        echo "*** version of Vorbis. If it is not finding Vorbis, you'll need to set your"
        echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to point"
@@ -192,8 +189,7 @@ int main ()
        echo "*** is required on your system"
        echo "***"
        echo "*** If you have an old version installed, it is best to remove it, although"
-       echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"],
-       [ echo "*** The test program failed to compile or link. See the file config.log for the"
+       echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"],[ echo "*** The test program failed to compile or link. See the file config.log for the"
        echo "*** exact error that occured. This usually means Vorbis was incorrectly installed"
        echo "*** or that you have moved Vorbis since it was installed." ])
        CFLAGS="$ac_save_CFLAGS"
@@ -218,7 +214,7 @@ AC_DEFUN([AC_TRY_CFLAGS],
     [AC_MSG_CHECKING([if $CC supports $1 flags])
     SAVE_CFLAGS="$CFLAGS"
     CFLAGS="$1"
-    AC_TRY_COMPILE([],[],[ac_cv_try_cflags_ok=yes],[ac_cv_try_cflags_ok=no])
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[]])],[ac_cv_try_cflags_ok=yes],[ac_cv_try_cflags_ok=no])
     CFLAGS="$SAVE_CFLAGS"
     AC_MSG_RESULT([$ac_cv_try_cflags_ok])
     if test x"$ac_cv_try_cflags_ok" = x"yes"; then

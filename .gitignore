@@ -24,3 +24,4 @@ missing
 mkinstalldirs
 data
 autom4te.cache/
+compile

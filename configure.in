@@ -1,11 +1,15 @@
 dnl process this file with autoconf to generate the configure script
 
-AC_INIT(ogmmerge.cpp)
+AC_INIT
+AC_CONFIG_SRCDIR([ogmmerge.cpp])
 AM_INIT_AUTOMAKE(ogmtools,1.5)
 
 AC_PROG_CC
 AC_PROG_CXX
-AC_PROG_GCC_TRADITIONAL
+m4_warn([obsolete],
+[AC_PROG_GCC_TRADITIONAL is obsolete; use AC_PROG_CC
+])dnl
+AC_REQUIRE(AC_PROG_CC)
 AC_PROG_CPP
 AC_PROG_RANLIB
 
@@ -29,6 +33,15 @@ AC_DEFINE(NEED_FSEEKO)
 fi
 
 dnl Check for headers
-AC_HEADER_STDC()
+m4_warn([obsolete],
+[The preprocessor macro 'STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  C89 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
 
-AC_OUTPUT(Makefile avilib/Makefile)
+
+AC_CONFIG_FILES([Makefile avilib/Makefile])
+AC_OUTPUT

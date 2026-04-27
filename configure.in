@@ -40,7 +40,13 @@ dnl libdvdread support
 dnl
 
 have_dvdread=no
-AM_PATH_LIBDVDREAD(AC_DEFINE(HAVE_LIBDVDREAD))
+# Check for dvdread library (version 6.0 or higher)
+PKG_CHECK_MODULES([DVDREAD], [dvdread >= 6.0], [
+    AC_SUBST([DVDREAD_CFLAGS])
+    AC_SUBST([DVDREAD_LIBS])
+    have_dvdread=yes
+])
+
 AM_CONDITIONAL(HAVE_LIBDVDREAD, test x"$have_dvdread" = "xyes")
 
 AC_CHECK_FUNCS(fseeko)

@@ -592,8 +592,8 @@ void process_ogm(int fdin)
           if (extraction_requested(xtext, ntstreams + 1, NOTEXT)) {
             new_name = malloc(strlen(basename) + 20);
             if (!new_name) {
-              fprintf(stderr, "(%s) Failed to allocate %d bytes.\n", __FILE__,
-                strlen(basename) + 10);
+              fprintf(stderr, "(%s) Failed to allocate %lu bytes.\n", __FILE__,
+                strlen(basename) + 20);
               exit(1);
             }
             if (!xraw)
@@ -710,9 +710,9 @@ int main(int argc, char *argv[]) {
   
   nice(2);
 
-  xaudio = (char *)malloc(1);
-  xvideo = (char *)malloc(1);
-  xtext = (char *)malloc(1);
+  xaudio = (unsigned char *)malloc(1);
+  xvideo = (unsigned char *)malloc(1);
+  xtext = (unsigned char *)malloc(1);
   *xaudio = 0;
   *xvideo = 0;
   *xtext = 0;
